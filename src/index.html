@@ -5,13 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <!--JQuery CDN (Google)-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Vanilla JavaScript App</title>
 </head>
 
 <body>
     <main>
     <h1>Vanilla JavaScript App</h1>
-    <p>Loading content from the API: <b id="name">...</b></p>
+    <p>Loading content from API 1: <b id="name">...</b></p>
+    </br>
+    <button onclick="api2Function()">Click here to load content from the API 2:</button>
+        <p><b id="name2"></b></p>
     </main>
 
     <script>
@@ -19,6 +24,23 @@
         const { text } = await( await fetch(`/api/message`)).json();
         document.querySelector('#name').textContent = text;
     }())
+
+    function api2Function() {
+        $.ajax({
+          url: "/api/message",
+          type: "POST",
+          success: function(result) {
+            console.log(result);
+            ("#name2").html("Success!...check console");
+          },
+          error: function(error) {
+            console.log(error);
+            ("#name2").html("Error!...check console");
+          }
+        });
+    }
+
+
     </script>
 </body>
 
